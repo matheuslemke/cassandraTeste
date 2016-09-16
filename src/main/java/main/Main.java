@@ -1,11 +1,7 @@
 package main;
 
-import java.util.List;
-
-import com.datastax.driver.core.Row;
-
 import dao.Connector;
-import dao.DAOFlag;
+import dao.MainQueryInitializer;
 
 public class Main
 {
@@ -14,10 +10,13 @@ public class Main
 	{
 		Connector.buildSession();
 
-		DAOFlag daoFlag = new DAOFlag();
-		List<Row> list = daoFlag.selectAll();
+		MainQueryInitializer init = new MainQueryInitializer();
+		init.initializeMainQuery();
 
-		System.out.println(list.size());
+		// System.out.println(Connector.getSession()
+		// .execute("SELECT descricao, id_unidadefederativa FROM cidade WHERE
+		// id_cidade = " + (long) 9568609 + ";")
+		// .all());
 
 		Connector.closeSession();
 	}

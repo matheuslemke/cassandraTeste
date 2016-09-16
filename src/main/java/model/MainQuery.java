@@ -8,7 +8,7 @@ public class MainQuery
 	private long idEndereco;
 	private long codigoLocal;
 	private String descricaoLocal;
-	private long cnpjLocal;
+	private String cnpjLocal;
 	private long idParceiro;
 	private String nomeParceiro;
 	private long codigoParceiro;
@@ -16,7 +16,7 @@ public class MainQuery
 	private long idGrupoEmpresarial;
 	private long numeroMatriculaParceiroAssociado;
 	private long idInfoComplementar;
-	private long cpfPessoaFisica;
+	private String cpfPessoaFisica;
 	private String numeroEndereco;
 	private long idLogradouro;
 	private long idLocalidade;
@@ -33,7 +33,154 @@ public class MainQuery
 
 	public long getIdLocal()
 	{
-		return idLocal;
+		return (long) idLocal;
+	}
+
+	public long getIdEndereco()
+	{
+		return (long) idEndereco;
+	}
+
+	public long getCodigoLocal()
+	{
+		return (long) codigoLocal;
+	}
+
+	public String getDescricaoLocal()
+	{
+		if (descricaoLocal == null)
+			return "null";
+		return "'" + descricaoLocal + "'";
+	}
+
+	public String getCnpjLocal()
+	{
+		if (cnpjLocal == null)
+			return "null";
+		return "'" + cnpjLocal + "'";
+	}
+
+	public long getIdParceiro()
+	{
+		return (long) idParceiro;
+	}
+
+	public String getNomeParceiro()
+	{
+		if (nomeParceiro == null)
+			return "null";
+		return "'" + nomeParceiro + "'";
+	}
+
+	public long getCodigoParceiro()
+	{
+		return (long) codigoParceiro;
+	}
+
+	public long getIdFlagTipoPessoa()
+	{
+		return (long) idFlagTipoPessoa;
+	}
+
+	public long getIdGrupoEmpresarial()
+	{
+		return (long) idGrupoEmpresarial;
+	}
+
+	public long getNumeroMatriculaParceiroAssociado()
+	{
+		return (long) numeroMatriculaParceiroAssociado;
+	}
+
+	public long getIdInfoComplementar()
+	{
+		return (long) idInfoComplementar;
+	}
+
+	public String getCpfPessoaFisica()
+	{
+		if (cpfPessoaFisica == null)
+			return "null";
+		return "'" + cpfPessoaFisica + "'";
+	}
+
+	public String getNumeroEndereco()
+	{
+		if (numeroEndereco == null)
+			return "null";
+		return "'" + numeroEndereco + "'";
+	}
+
+	public long getIdLogradouro()
+	{
+		return (long) idLogradouro;
+	}
+
+	public long getIdLocalidade()
+	{
+		return (long) idLocalidade;
+	}
+
+	public String getDescricaoLogradouro()
+	{
+		if (descricaoLogradouro == null)
+			return "null";
+		return "'" + descricaoLogradouro + "'";
+	}
+
+	public long getIdTipoLogradouro()
+	{
+		return (long) idTipoLogradouro;
+	}
+
+	public long getIdCidade()
+	{
+		return (long) idCidade;
+	}
+
+	public String getDescricaoTipoLogradouro()
+	{
+		if (descricaoTipoLogradouro == null)
+			return "null";
+		return "'" + descricaoTipoLogradouro + "'";
+	}
+
+	public String getDescricaoCidade()
+	{
+		if (descricaoCidade == null)
+			return "null";
+		return "'" + descricaoCidade + "'";
+	}
+
+	public long getIdUnidadeFederativa()
+	{
+		return (long) idUnidadeFederativa;
+	}
+
+	public String getSiglaUnidadeFederativa()
+	{
+		if (siglaUnidadeFederativa == null)
+			return "null";
+		return "'" + siglaUnidadeFederativa + "'";
+	}
+
+	public long getIdPais()
+	{
+		return (long) idPais;
+	}
+
+	public String getSiglaPais()
+	{
+		if (siglaPais == null)
+			return "null";
+		return "'" + siglaPais + "'";
+	}
+
+	public String getDescricaoLocalidade()
+	{
+		if (descricaoLocalidade == null)
+			return "null";
+		return "'" + descricaoLocalidade + "'";
 	}
 
 	public void setIdLocal(long idLocal)
@@ -41,19 +188,9 @@ public class MainQuery
 		this.idLocal = idLocal;
 	}
 
-	public long getIdEndereco()
-	{
-		return idEndereco;
-	}
-
 	public void setIdEndereco(long idEndereco)
 	{
 		this.idEndereco = idEndereco;
-	}
-
-	public long getCodigoLocal()
-	{
-		return codigoLocal;
 	}
 
 	public void setCodigoLocal(long codigoLocal)
@@ -61,29 +198,14 @@ public class MainQuery
 		this.codigoLocal = codigoLocal;
 	}
 
-	public String getDescricaoLocal()
-	{
-		return descricaoLocal;
-	}
-
 	public void setDescricaoLocal(String descricaoLocal)
 	{
 		this.descricaoLocal = descricaoLocal;
 	}
 
-	public long getCnpjLocal()
-	{
-		return cnpjLocal;
-	}
-
-	public void setCnpjLocal(long cnpjLocal)
+	public void setCnpjLocal(String cnpjLocal)
 	{
 		this.cnpjLocal = cnpjLocal;
-	}
-
-	public long getIdParceiro()
-	{
-		return idParceiro;
 	}
 
 	public void setIdParceiro(long idParceiro)
@@ -91,19 +213,9 @@ public class MainQuery
 		this.idParceiro = idParceiro;
 	}
 
-	public String getNomeParceiro()
-	{
-		return nomeParceiro;
-	}
-
 	public void setNomeParceiro(String nomeParceiro)
 	{
 		this.nomeParceiro = nomeParceiro;
-	}
-
-	public long getCodigoParceiro()
-	{
-		return codigoParceiro;
 	}
 
 	public void setCodigoParceiro(long codigoParceiro)
@@ -111,19 +223,9 @@ public class MainQuery
 		this.codigoParceiro = codigoParceiro;
 	}
 
-	public long getIdFlagTipoPessoa()
-	{
-		return idFlagTipoPessoa;
-	}
-
 	public void setIdFlagTipoPessoa(long idFlagTipoPessoa)
 	{
 		this.idFlagTipoPessoa = idFlagTipoPessoa;
-	}
-
-	public long getIdGrupoEmpresarial()
-	{
-		return idGrupoEmpresarial;
 	}
 
 	public void setIdGrupoEmpresarial(long idGrupoEmpresarial)
@@ -131,19 +233,9 @@ public class MainQuery
 		this.idGrupoEmpresarial = idGrupoEmpresarial;
 	}
 
-	public long getNumeroMatriculaParceiroAssociado()
-	{
-		return numeroMatriculaParceiroAssociado;
-	}
-
 	public void setNumeroMatriculaParceiroAssociado(long numeroMatriculaParceiroAssociado)
 	{
 		this.numeroMatriculaParceiroAssociado = numeroMatriculaParceiroAssociado;
-	}
-
-	public long getIdInfoComplementar()
-	{
-		return idInfoComplementar;
 	}
 
 	public void setIdInfoComplementar(long idInfoComplementar)
@@ -151,19 +243,9 @@ public class MainQuery
 		this.idInfoComplementar = idInfoComplementar;
 	}
 
-	public long getCpfPessoaFisica()
-	{
-		return cpfPessoaFisica;
-	}
-
-	public void setCpfPessoaFisica(long cpfPessoaFisica)
+	public void setCpfPessoaFisica(String cpfPessoaFisica)
 	{
 		this.cpfPessoaFisica = cpfPessoaFisica;
-	}
-
-	public String getNumeroEndereco()
-	{
-		return numeroEndereco;
 	}
 
 	public void setNumeroEndereco(String numeroEndereco)
@@ -171,19 +253,9 @@ public class MainQuery
 		this.numeroEndereco = numeroEndereco;
 	}
 
-	public long getIdLogradouro()
-	{
-		return idLogradouro;
-	}
-
 	public void setIdLogradouro(long idLogradouro)
 	{
 		this.idLogradouro = idLogradouro;
-	}
-
-	public long getIdLocalidade()
-	{
-		return idLocalidade;
 	}
 
 	public void setIdLocalidade(long idLocalidade)
@@ -191,19 +263,9 @@ public class MainQuery
 		this.idLocalidade = idLocalidade;
 	}
 
-	public String getDescricaoLogradouro()
-	{
-		return descricaoLogradouro;
-	}
-
 	public void setDescricaoLogradouro(String descricaoLogradouro)
 	{
 		this.descricaoLogradouro = descricaoLogradouro;
-	}
-
-	public long getIdTipoLogradouro()
-	{
-		return idTipoLogradouro;
 	}
 
 	public void setIdTipoLogradouro(long idTipoLogradouro)
@@ -211,19 +273,9 @@ public class MainQuery
 		this.idTipoLogradouro = idTipoLogradouro;
 	}
 
-	public long getIdCidade()
-	{
-		return idCidade;
-	}
-
 	public void setIdCidade(long idCidade)
 	{
 		this.idCidade = idCidade;
-	}
-
-	public String getDescricaoTipoLogradouro()
-	{
-		return descricaoTipoLogradouro;
 	}
 
 	public void setDescricaoTipoLogradouro(String descricaoTipoLogradouro)
@@ -231,19 +283,9 @@ public class MainQuery
 		this.descricaoTipoLogradouro = descricaoTipoLogradouro;
 	}
 
-	public String getDescricaoCidade()
-	{
-		return descricaoCidade;
-	}
-
 	public void setDescricaoCidade(String descricaoCidade)
 	{
 		this.descricaoCidade = descricaoCidade;
-	}
-
-	public long getIdUnidadeFederativa()
-	{
-		return idUnidadeFederativa;
 	}
 
 	public void setIdUnidadeFederativa(long idUnidadeFederativa)
@@ -251,19 +293,9 @@ public class MainQuery
 		this.idUnidadeFederativa = idUnidadeFederativa;
 	}
 
-	public String getSiglaUnidadeFederativa()
-	{
-		return siglaUnidadeFederativa;
-	}
-
 	public void setSiglaUnidadeFederativa(String siglaUnidadeFederativa)
 	{
 		this.siglaUnidadeFederativa = siglaUnidadeFederativa;
-	}
-
-	public long getIdPais()
-	{
-		return idPais;
 	}
 
 	public void setIdPais(long idPais)
@@ -271,19 +303,9 @@ public class MainQuery
 		this.idPais = idPais;
 	}
 
-	public String getSiglaPais()
-	{
-		return siglaPais;
-	}
-
 	public void setSiglaPais(String siglaPais)
 	{
 		this.siglaPais = siglaPais;
-	}
-
-	public String getDescricaoLocalidade()
-	{
-		return descricaoLocalidade;
 	}
 
 	public void setDescricaoLocalidade(String descricaoLocalidade)

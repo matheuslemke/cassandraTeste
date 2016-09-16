@@ -36,7 +36,9 @@ public class DAOMainQuery
 				+ mainQuery.getDescricaoCidade() + ", " + mainQuery.getIdUnidadeFederativa() + ", "
 				+ mainQuery.getSiglaUnidadeFederativa() + ", " + mainQuery.getIdPais() + ", " + mainQuery.getSiglaPais()
 				+ ", " + mainQuery.getDescricaoLocalidade() + ");";
+		System.out.println(query);
 		Connector.getSession().execute(query);
+		System.out.println("Inseriu");
 	}
 
 	public List<Row> selectAll()
