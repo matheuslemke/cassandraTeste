@@ -38,7 +38,6 @@ public class DAOMainQuery
 				+ ", " + mainQuery.getDescricaoLocalidade() + ");";
 		System.out.println(query);
 		Connector.getSession().execute(query);
-		System.out.println("Inseriu");
 	}
 
 	public List<Row> selectAll()

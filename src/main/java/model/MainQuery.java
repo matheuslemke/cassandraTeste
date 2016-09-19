@@ -4,30 +4,30 @@ package model;
 
 public class MainQuery
 {
-	private long idLocal;
-	private long idEndereco;
-	private long codigoLocal;
+	private long idLocal = 0;
+	private long idEndereco = 0;
+	private long codigoLocal = 0;
 	private String descricaoLocal;
 	private String cnpjLocal;
-	private long idParceiro;
+	private long idParceiro = 0;
 	private String nomeParceiro;
-	private long codigoParceiro;
-	private long idFlagTipoPessoa;
-	private long idGrupoEmpresarial;
-	private long numeroMatriculaParceiroAssociado;
-	private long idInfoComplementar;
+	private long codigoParceiro = 0;
+	private long idFlagTipoPessoa = 0;
+	private long idGrupoEmpresarial = 0;
+	private long numeroMatriculaParceiroAssociado = 0;
+	private long idInfoComplementar = 0;
 	private String cpfPessoaFisica;
 	private String numeroEndereco;
-	private long idLogradouro;
-	private long idLocalidade;
+	private long idLogradouro = 0;
+	private long idLocalidade = 0;
 	private String descricaoLogradouro;
-	private long idTipoLogradouro;
-	private long idCidade;
+	private long idTipoLogradouro = 0;
+	private long idCidade = 0;
 	private String descricaoTipoLogradouro;
 	private String descricaoCidade;
-	private long idUnidadeFederativa;
+	private long idUnidadeFederativa = 0;
 	private String siglaUnidadeFederativa;
-	private long idPais;
+	private long idPais = 0;
 	private String siglaPais;
 	private String descricaoLocalidade;
 
