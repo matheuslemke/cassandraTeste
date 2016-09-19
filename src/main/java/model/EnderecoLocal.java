@@ -1,12 +1,12 @@
 package model;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 public class EnderecoLocal
 {
 	private long idEnderecoLocal;
-	private LocalDate dataFim;
-	private LocalDate dataInicio;
+	private Date dataFim;
+	private Date dataInicio;
 	private long idEndereco;
 	private long idLocal;
 
@@ -20,22 +20,22 @@ public class EnderecoLocal
 		this.idEnderecoLocal = idEnderecoLocal;
 	}
 
-	public LocalDate getDataFim()
+	public Date getDataFim()
 	{
 		return dataFim;
 	}
 
-	public void setDataFim(LocalDate dataFim)
+	public void setDataFim(Date dataFim)
 	{
 		this.dataFim = dataFim;
 	}
 
-	public LocalDate getDataInicio()
+	public Date getDataInicio()
 	{
 		return dataInicio;
 	}
 
-	public void setDataInicio(LocalDate dataInicio)
+	public void setDataInicio(Date dataInicio)
 	{
 		this.dataInicio = dataInicio;
 	}

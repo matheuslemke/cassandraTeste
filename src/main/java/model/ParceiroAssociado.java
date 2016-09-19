@@ -1,14 +1,14 @@
 package model;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 public class ParceiroAssociado
 {
 	private long idParceiroAssociado;
 	private long associado;
-	private LocalDate dataAdmissao;
-	private LocalDate dataDemissao;
-	private LocalDate dataPedidoDemissao;
+	private Date dataAdmissao;
+	private Date dataDemissao;
+	private Date dataPedidoDemissao;
 	private long idEmpresa;
 	private long idMotivoDesligamento;
 	private long idParceiro;
@@ -36,32 +36,32 @@ public class ParceiroAssociado
 		this.associado = associado;
 	}
 
-	public LocalDate getDataAdmissao()
+	public Date getDataAdmissao()
 	{
 		return dataAdmissao;
 	}
 
-	public void setDataAdmissao(LocalDate dataAdmissao)
+	public void setDataAdmissao(Date dataAdmissao)
 	{
 		this.dataAdmissao = dataAdmissao;
 	}
 
-	public LocalDate getDataDemissao()
+	public Date getDataDemissao()
 	{
 		return dataDemissao;
 	}
 
-	public void setDataDemissao(LocalDate dataDemissao)
+	public void setDataDemissao(Date dataDemissao)
 	{
 		this.dataDemissao = dataDemissao;
 	}
 
-	public LocalDate getDataPedidoDemissao()
+	public Date getDataPedidoDemissao()
 	{
 		return dataPedidoDemissao;
 	}
 
-	public void setDataPedidoDemissao(LocalDate dataPedidoDemissao)
+	public void setDataPedidoDemissao(Date dataPedidoDemissao)
 	{
 		this.dataPedidoDemissao = dataPedidoDemissao;
 	}

@@ -36,7 +36,7 @@ public class MainQueryInitializer
 				// mainquery ALLOW FILTERING;").all());
 				System.out.println();
 			}
-			if (i > 56900)
+			if (i > 85700 && i <= 100000)
 			{
 				// if (isDataValid(enderecoLocal))
 				// {
@@ -45,7 +45,7 @@ public class MainQueryInitializer
 				mainQuery.setIdLocal(enderecoLocal.getLong(2));
 				mainQuery.setIdEndereco(enderecoLocal.getLong(3));
 
-				local = getUniqueRow(
+				local = Selector.getUniqueRow(
 						"SELECT codigo, descricao, cnpj, id_parceiro FROM local WHERE ativo = 1 AND id_local = "
 								+ mainQuery.getIdLocal() + " ALLOW FILTERING;");
 				if (local != null)
@@ -57,7 +57,7 @@ public class MainQueryInitializer
 
 					// Essa lista só tem 1 registro ou é nula por causa dos
 					// filtros
-					parceiro = getUniqueRow(
+					parceiro = Selector.getUniqueRow(
 							"SELECT nome, codigo, id_flagtipopessoa, id_grupoempresarial FROM parceiro WHERE id_parceiro = "
 									+ mainQuery.getIdParceiro()
 									+ " AND id_grupoempresarial = 1 AND ativo = 1 ALLOW FILTERING;");
@@ -73,20 +73,20 @@ public class MainQueryInitializer
 						{
 							// Definição de matricula =
 							// parceiroassociado.matricula
-							parceiroAssociado = getUniqueRow(
+							parceiroAssociado = Selector.getUniqueRow(
 									"SELECT numeromatricula FROM parceiroassociado WHERE associado = 1 AND id_parceiro = "
 											+ mainQuery.getIdParceiro() + " ALLOW FILTERING;");
 							if (parceiroAssociado != null)
 							{
 								mainQuery.setNumeroMatriculaParceiroAssociado(parceiroAssociado.getLong(0));
 								// Definir CPF
-								infoComplementar = getUniqueRow(
+								infoComplementar = Selector.getUniqueRow(
 										"SELECT id_informacaocomplementar FROM informacaocomplementar WHERE id_parceiro = "
 												+ mainQuery.getIdParceiro() + " ;");
 								if (infoComplementar != null)
 								{
 									mainQuery.setIdInfoComplementar(infoComplementar.getLong(0));
-									pessoaFisica = getUniqueRow(
+									pessoaFisica = Selector.getUniqueRow(
 											"SELECT cpf FROM pessoafisica WHERE id_informacaocomplementar = "
 													+ mainQuery.getIdInfoComplementar() + " ;");
 									if (pessoaFisica != null)
@@ -105,7 +105,7 @@ public class MainQueryInitializer
 							}
 						}
 
-						endereco = getUniqueRow(
+						endereco = Selector.getUniqueRow(
 								"SELECT numero, id_logradouro, id_localidade FROM endereco WHERE id_endereco = "
 										+ mainQuery.getIdEndereco() + " ;");
 						if (endereco != null)
@@ -114,7 +114,7 @@ public class MainQueryInitializer
 							mainQuery.setIdLogradouro(endereco.getLong(1));
 							mainQuery.setIdLocalidade(endereco.getLong(2));
 
-							logradouro = getUniqueRow(
+							logradouro = Selector.getUniqueRow(
 									"SELECT descricao, id_tipologradouro, id_cidade FROM logradouro WHERE id_logradouro = "
 											+ mainQuery.getIdLogradouro() + " ;");
 							if (logradouro != null)
@@ -123,21 +123,21 @@ public class MainQueryInitializer
 								mainQuery.setIdTipoLogradouro(logradouro.getLong(1));
 								mainQuery.setIdCidade(logradouro.getLong(2));
 
-								tipoLogradouro = getUniqueRow(
-										"SELECT descricao FROM tipologradouro WHERE id_tipologradouro = "
+								tipoLogradouro = Selector
+										.getUniqueRow("SELECT descricao FROM tipologradouro WHERE id_tipologradouro = "
 												+ mainQuery.getIdTipoLogradouro() + " ;");
 								if (tipoLogradouro != null)
 									mainQuery.setDescricaoTipoLogradouro(tipoLogradouro.getString(0));
 
 								String queryCidade = "SELECT descricao, id_unidadefederativa FROM cidade WHERE id_cidade = "
 										+ (Long) mainQuery.getIdCidade() + ";";
-								cidade = getUniqueRow(queryCidade);
+								cidade = Selector.getUniqueRow(queryCidade);
 								if (cidade != null)
 								{
 									mainQuery.setDescricaoCidade(cidade.getString(0).replace("'", ""));
 									mainQuery.setIdUnidadeFederativa(cidade.getLong(1));
 
-									unidadeFederativa = getUniqueRow(
+									unidadeFederativa = Selector.getUniqueRow(
 											"SELECT sigla, id_pais FROM unidadefederativa WHERE id_unidadefederativa = "
 													+ (Long) mainQuery.getIdUnidadeFederativa() + " ;");
 									if (unidadeFederativa != null)
@@ -147,12 +147,12 @@ public class MainQueryInitializer
 
 										String queryPais = "SELECT sigla FROM pais WHERE id_pais = "
 												+ (Long) mainQuery.getIdPais() + " ;";
-										pais = getUniqueRow(queryPais);
+										pais = Selector.getUniqueRow(queryPais);
 										if (pais != null)
 										{
 											mainQuery.setSiglaPais(pais.getString(0));
 
-											localidade = getUniqueRow(
+											localidade = Selector.getUniqueRow(
 													"SELECT descricao FROM localidade WHERE id_localidade = "
 															+ mainQuery.getIdLocalidade() + " ;");
 											if (localidade != null)
@@ -257,24 +257,5 @@ public class MainQueryInitializer
 		if (dataInicio.compareTo(dataHoje) <= 0 && (dataFim == null || dataFim.compareTo(dataHoje) >= 0))
 			return true;
 		return false;
-	}
-
-	private Row getUniqueRow(String query)
-	{
-		List<Row> list = Connector.getSession().execute(query).all();
-		if (!list.isEmpty())
-			return list.get(0);
-		return null;
-	}
-
-	private Row getUniqueRow(String query, String debug)
-	{
-		List<Row> list = Connector.getSession().execute(query).all();
-		if (!list.isEmpty())
-		{
-			System.out.println(debug + list);
-			return list.get(0);
-		}
-		return null;
 	}
 }

@@ -1,6 +1,6 @@
 package model;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 public class Local
 {
@@ -13,10 +13,10 @@ public class Local
 	private long codigoAtividadeEconomicaANP;
 	private long codigoInstalacaoANP;
 	private String contato;
-	private LocalDate dataCadastro;
-	private LocalDate dataDeRegistroNaJuntaComercial;
-	private LocalDate dataDeRegistroNaSefaz;
-	private LocalDate dataUltimaAtualizacao;
+	private Date dataCadastro;
+	private Date dataDeRegistroNaJuntaComercial;
+	private Date dataDeRegistroNaSefaz;
+	private Date dataUltimaAtualizacao;
 	private String descricao;
 	private String email;
 	private String emailEnvioNFE;
@@ -43,7 +43,7 @@ public class Local
 	private String razaoSocial;
 	private long somenteCobranca;
 	private String telefone;
-	private LocalDate validadeInscricaoEstadual;
+	private Date validadeInscricaoEstadual;
 
 	public long getIdLocal()
 	{
@@ -135,42 +135,42 @@ public class Local
 		this.contato = contato;
 	}
 
-	public LocalDate getDataCadastro()
+	public Date getDataCadastro()
 	{
 		return dataCadastro;
 	}
 
-	public void setDataCadastro(LocalDate dataCadastro)
+	public void setDataCadastro(Date dataCadastro)
 	{
 		this.dataCadastro = dataCadastro;
 	}
 
-	public LocalDate getDataDeRegistroNaJuntaComercial()
+	public Date getDataDeRegistroNaJuntaComercial()
 	{
 		return dataDeRegistroNaJuntaComercial;
 	}
 
-	public void setDataDeRegistroNaJuntaComercial(LocalDate dataDeRegistroNaJuntaComercial)
+	public void setDataDeRegistroNaJuntaComercial(Date dataDeRegistroNaJuntaComercial)
 	{
 		this.dataDeRegistroNaJuntaComercial = dataDeRegistroNaJuntaComercial;
 	}
 
-	public LocalDate getDataDeRegistroNaSefaz()
+	public Date getDataDeRegistroNaSefaz()
 	{
 		return dataDeRegistroNaSefaz;
 	}
 
-	public void setDataDeRegistroNaSefaz(LocalDate dataDeRegistroNaSefaz)
+	public void setDataDeRegistroNaSefaz(Date dataDeRegistroNaSefaz)
 	{
 		this.dataDeRegistroNaSefaz = dataDeRegistroNaSefaz;
 	}
 
-	public LocalDate getDataUltimaAtualizacao()
+	public Date getDataUltimaAtualizacao()
 	{
 		return dataUltimaAtualizacao;
 	}
 
-	public void setDataUltimaAtualizacao(LocalDate dataUltimaAtualizacao)
+	public void setDataUltimaAtualizacao(Date dataUltimaAtualizacao)
 	{
 		this.dataUltimaAtualizacao = dataUltimaAtualizacao;
 	}
@@ -435,12 +435,12 @@ public class Local
 		this.telefone = telefone;
 	}
 
-	public LocalDate getValidadeInscricaoEstadual()
+	public Date getValidadeInscricaoEstadual()
 	{
 		return validadeInscricaoEstadual;
 	}
 
-	public void setValidadeInscricaoEstadual(LocalDate validadeInscricaoEstadual)
+	public void setValidadeInscricaoEstadual(Date validadeInscricaoEstadual)
 	{
 		this.validadeInscricaoEstadual = validadeInscricaoEstadual;
 	}

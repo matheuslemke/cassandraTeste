@@ -1,34 +1,53 @@
 package dao;
 
-import java.util.Date;
 import java.util.List;
 
 import com.datastax.driver.core.Row;
 
-import model.Endereco;
-import model.Local;
+import model.EnderecoLocal;
 import util.Constants;
 import util.UDTConversor;
 
 public class DAOEnderecoLocal
 {
-	public void insert(long idEnderecoLocal, Date dataFim, Date dataInicio, Endereco endereco, Local local)
+	private EnderecoLocal enderecoLocal;
+
+	public DAOEnderecoLocal(EnderecoLocal enderecoLocal)
+	{
+		super();
+		this.enderecoLocal = enderecoLocal;
+	}
+
+	public EnderecoLocal getEnderecoLocal()
+	{
+		return enderecoLocal;
+	}
+
+	public void setEnderecoLocal(EnderecoLocal enderecoLocal)
+	{
+		this.enderecoLocal = enderecoLocal;
+	}
+
+	public void insert()
 	{
 		StringBuilder sb = new StringBuilder();
 		sb.append("INSERT INTO enderecolocal ");
 		sb.append(Constants.fieldsEnderecoLocal);
 		sb.append(" VALUES (");
-		sb.append(idEnderecoLocal);
+		sb.append(enderecoLocal.getIdEnderecoLocal());
 		sb.append(", ");
-		sb.append(UDTConversor.toData(dataFim));
+		sb.append(UDTConversor.toData(enderecoLocal.getDataFim()));
 		sb.append(", ");
-		sb.append(UDTConversor.toData(dataInicio));
+		sb.append(UDTConversor.toData(enderecoLocal.getDataInicio()));
 		sb.append(", ");
-		sb.append(endereco.getIdEndereco());
+		sb.append(enderecoLocal.getIdEndereco());
 		sb.append(", ");
-		sb.append(local.getIdLocal());
+		sb.append(enderecoLocal.getIdLocal());
 		sb.append(");");
 		Connector.getSession().execute(sb.toString());
+
+		DAOMainQuery daoMQ = new DAOMainQuery();
+		daoMQ.insertCascade(enderecoLocal);
 	}
 
 	public List<Row> selectAll()

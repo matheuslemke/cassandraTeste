@@ -1,6 +1,6 @@
 package model;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 public class PessoaFisica
 {
@@ -8,9 +8,9 @@ public class PessoaFisica
 	private String celular;
 	private String contaCorrenteFunRural;
 	private String cpf;
-	private LocalDate dataAdmissaoTrabalho;
-	private LocalDate dataExpedicao;
-	private LocalDate dataNascimento;
+	private Date dataAdmissaoTrabalho;
+	private Date dataExpedicao;
+	private Date dataNascimento;
 	private long empregador;
 	private String foneTrabalho;
 	private long idCargo;
@@ -57,32 +57,32 @@ public class PessoaFisica
 		this.cpf = cpf;
 	}
 
-	public LocalDate getDataAdmissaoTrabalho()
+	public Date getDataAdmissaoTrabalho()
 	{
 		return dataAdmissaoTrabalho;
 	}
 
-	public void setDataAdmissaoTrabalho(LocalDate dataAdmissaoTrabalho)
+	public void setDataAdmissaoTrabalho(Date dataAdmissaoTrabalho)
 	{
 		this.dataAdmissaoTrabalho = dataAdmissaoTrabalho;
 	}
 
-	public LocalDate getDataExpedicao()
+	public Date getDataExpedicao()
 	{
 		return dataExpedicao;
 	}
 
-	public void setDataExpedicao(LocalDate dataExpedicao)
+	public void setDataExpedicao(Date dataExpedicao)
 	{
 		this.dataExpedicao = dataExpedicao;
 	}
 
-	public LocalDate getDataNascimento()
+	public Date getDataNascimento()
 	{
 		return dataNascimento;
 	}
 
-	public void setDataNascimento(LocalDate dataNascimento)
+	public void setDataNascimento(Date dataNascimento)
 	{
 		this.dataNascimento = dataNascimento;
 	}
