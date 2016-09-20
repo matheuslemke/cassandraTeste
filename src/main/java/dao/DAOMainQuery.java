@@ -6,7 +6,7 @@ import com.datastax.driver.core.Row;
 
 import model.EnderecoLocal;
 import model.MainQuery;
-import util.Constants;
+import util.Querier;
 
 public class DAOMainQuery
 {
@@ -24,21 +24,10 @@ public class DAOMainQuery
 
 	public void insert()
 	{
-		String query = "INSERT INTO mainquery (" + Constants.fieldsMainQuery + ") VALUES (" + mainQuery.getIdLocal()
-				+ ", " + mainQuery.getIdEndereco() + ", " + mainQuery.getCodigoLocal() + ", "
-				+ mainQuery.getDescricaoLocal() + ", " + mainQuery.getCnpjLocal() + ", " + mainQuery.getIdParceiro()
-				+ ", " + mainQuery.getNomeParceiro() + ", " + mainQuery.getCodigoParceiro() + ", "
-				+ mainQuery.getIdFlagTipoPessoa() + ", " + mainQuery.getIdGrupoEmpresarial() + ", "
-				+ mainQuery.getNumeroMatriculaParceiroAssociado() + ", " + mainQuery.getIdInfoComplementar() + ", "
-				+ mainQuery.getCpfPessoaFisica() + ", " + mainQuery.getNumeroEndereco() + ", "
-				+ mainQuery.getIdLogradouro() + ", " + mainQuery.getIdLocalidade() + ", "
-				+ mainQuery.getDescricaoLogradouro() + ", " + mainQuery.getIdTipoLogradouro() + ", "
-				+ mainQuery.getIdCidade() + ", " + mainQuery.getDescricaoTipoLogradouro() + ", "
-				+ mainQuery.getDescricaoCidade() + ", " + mainQuery.getIdUnidadeFederativa() + ", "
-				+ mainQuery.getSiglaUnidadeFederativa() + ", " + mainQuery.getIdPais() + ", " + mainQuery.getSiglaPais()
-				+ ", " + mainQuery.getDescricaoLocalidade() + ");";
-		System.out.println(query);
+		Querier querier = new Querier();
+		String query = querier.insert(mainQuery);
 		Connector.getSession().execute(query);
+		System.out.println(query);
 	}
 
 	public List<Row> selectAll()
@@ -57,15 +46,35 @@ public class DAOMainQuery
 		this.mainQuery = mainQuery;
 	}
 
+	public void init()
+	{
+		List<Row> listEnderecoLocal = Connector.getSession()
+				.execute("SELECT datainicio, datafim, id_local, id_endereco FROM enderecolocal;").all();
+
+		int i = 0;
+		EnderecoLocal el = new EnderecoLocal();
+
+		for (Row enderecoLocal : listEnderecoLocal)
+		{
+			if (i % 100 == 0)
+				System.err.println("\nEnderecoLocal " + i + "\n");
+
+			el.setIdLocal(enderecoLocal.getLong(2));
+			el.setIdEndereco(enderecoLocal.getLong(3));
+			this.insertCascade(el);
+			i++;
+		}
+	}
+
 	public void insertCascade(EnderecoLocal enderecoLocal)
 	{
 		Row local, parceiro, parceiroAssociado, infoComplementar, pessoaFisica, endereco, logradouro, tipoLogradouro,
 				cidade, unidadeFederativa, pais, localidade;
-
+		Querier querier = new Querier();
 		MainQuery mainQuery = new MainQuery();
 		mainQuery.setIdLocal(enderecoLocal.getIdLocal());
 		mainQuery.setIdEndereco(enderecoLocal.getIdEndereco());
-		local = Selector
+		local = querier
 				.getUniqueRow("SELECT codigo, descricao, cnpj, id_parceiro FROM local WHERE ativo = 1 AND id_local = "
 						+ mainQuery.getIdLocal() + " ALLOW FILTERING;");
 		if (local != null)
@@ -77,7 +86,7 @@ public class DAOMainQuery
 
 			// Essa lista só tem 1 registro ou é nula por causa dos
 			// filtros
-			parceiro = Selector.getUniqueRow(
+			parceiro = querier.getUniqueRow(
 					"SELECT nome, codigo, id_flagtipopessoa, id_grupoempresarial FROM parceiro WHERE id_parceiro = "
 							+ mainQuery.getIdParceiro()
 							+ " AND id_grupoempresarial = 1 AND ativo = 1 ALLOW FILTERING;");
@@ -93,20 +102,20 @@ public class DAOMainQuery
 				{
 					// Definição de matricula =
 					// parceiroassociado.matricula
-					parceiroAssociado = Selector.getUniqueRow(
+					parceiroAssociado = querier.getUniqueRow(
 							"SELECT numeromatricula FROM parceiroassociado WHERE associado = 1 AND id_parceiro = "
 									+ mainQuery.getIdParceiro() + " ALLOW FILTERING;");
 					if (parceiroAssociado != null)
 					{
 						mainQuery.setNumeroMatriculaParceiroAssociado(parceiroAssociado.getLong(0));
 						// Definir CPF
-						infoComplementar = Selector.getUniqueRow(
+						infoComplementar = querier.getUniqueRow(
 								"SELECT id_informacaocomplementar FROM informacaocomplementar WHERE id_parceiro = "
 										+ mainQuery.getIdParceiro() + " ;");
 						if (infoComplementar != null)
 						{
 							mainQuery.setIdInfoComplementar(infoComplementar.getLong(0));
-							pessoaFisica = Selector
+							pessoaFisica = querier
 									.getUniqueRow("SELECT cpf FROM pessoafisica WHERE id_informacaocomplementar = "
 											+ mainQuery.getIdInfoComplementar() + " ;");
 							if (pessoaFisica != null)
@@ -119,7 +128,7 @@ public class DAOMainQuery
 					}
 				}
 
-				endereco = Selector
+				endereco = querier
 						.getUniqueRow("SELECT numero, id_logradouro, id_localidade FROM endereco WHERE id_endereco = "
 								+ mainQuery.getIdEndereco() + " ;");
 				if (endereco != null)
@@ -128,7 +137,7 @@ public class DAOMainQuery
 					mainQuery.setIdLogradouro(endereco.getLong(1));
 					mainQuery.setIdLocalidade(endereco.getLong(2));
 
-					logradouro = Selector.getUniqueRow(
+					logradouro = querier.getUniqueRow(
 							"SELECT descricao, id_tipologradouro, id_cidade FROM logradouro WHERE id_logradouro = "
 									+ mainQuery.getIdLogradouro() + " ;");
 					if (logradouro != null)
@@ -137,7 +146,7 @@ public class DAOMainQuery
 						mainQuery.setIdTipoLogradouro(logradouro.getLong(1));
 						mainQuery.setIdCidade(logradouro.getLong(2));
 
-						tipoLogradouro = Selector
+						tipoLogradouro = querier
 								.getUniqueRow("SELECT descricao FROM tipologradouro WHERE id_tipologradouro = "
 										+ mainQuery.getIdTipoLogradouro() + " ;");
 						if (tipoLogradouro != null)
@@ -145,13 +154,13 @@ public class DAOMainQuery
 
 						String queryCidade = "SELECT descricao, id_unidadefederativa FROM cidade WHERE id_cidade = "
 								+ (Long) mainQuery.getIdCidade() + ";";
-						cidade = Selector.getUniqueRow(queryCidade);
+						cidade = querier.getUniqueRow(queryCidade);
 						if (cidade != null)
 						{
 							mainQuery.setDescricaoCidade(cidade.getString(0).replace("'", ""));
 							mainQuery.setIdUnidadeFederativa(cidade.getLong(1));
 
-							unidadeFederativa = Selector.getUniqueRow(
+							unidadeFederativa = querier.getUniqueRow(
 									"SELECT sigla, id_pais FROM unidadefederativa WHERE id_unidadefederativa = "
 											+ (Long) mainQuery.getIdUnidadeFederativa() + " ;");
 							if (unidadeFederativa != null)
@@ -161,12 +170,12 @@ public class DAOMainQuery
 
 								String queryPais = "SELECT sigla FROM pais WHERE id_pais = "
 										+ (Long) mainQuery.getIdPais() + " ;";
-								pais = Selector.getUniqueRow(queryPais);
+								pais = querier.getUniqueRow(queryPais);
 								if (pais != null)
 								{
 									mainQuery.setSiglaPais(pais.getString(0));
 
-									localidade = Selector
+									localidade = querier
 											.getUniqueRow("SELECT descricao FROM localidade WHERE id_localidade = "
 													+ mainQuery.getIdLocalidade() + " ;");
 									if (localidade != null)

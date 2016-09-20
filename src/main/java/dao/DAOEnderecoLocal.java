@@ -6,7 +6,7 @@ import com.datastax.driver.core.Row;
 
 import model.EnderecoLocal;
 import util.Constants;
-import util.UDTConversor;
+import util.UtilierUDT;
 
 public class DAOEnderecoLocal
 {
@@ -36,9 +36,9 @@ public class DAOEnderecoLocal
 		sb.append(" VALUES (");
 		sb.append(enderecoLocal.getIdEnderecoLocal());
 		sb.append(", ");
-		sb.append(UDTConversor.toData(enderecoLocal.getDataFim()));
+		sb.append(UtilierUDT.toData(enderecoLocal.getDataFim()));
 		sb.append(", ");
-		sb.append(UDTConversor.toData(enderecoLocal.getDataInicio()));
+		sb.append(UtilierUDT.toData(enderecoLocal.getDataInicio()));
 		sb.append(", ");
 		sb.append(enderecoLocal.getIdEndereco());
 		sb.append(", ");
